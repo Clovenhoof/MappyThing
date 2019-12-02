@@ -8,7 +8,7 @@ const scale = 1.5;
 export default {
     selected: {
         path: markerShape,
-        fillColor:'#00ff00',
+        fillColor:'#4caf50',
         strokeColor: strokeColor,
         fillOpacity: opacity,
         anchor: anchor,
@@ -17,7 +17,7 @@ export default {
     },
     normal: {
         path: markerShape,
-        fillColor:'#ff0000',
+        fillColor:'#f44336',
         strokeColor: strokeColor,
         fillOpacity: opacity,
         anchor: anchor,
