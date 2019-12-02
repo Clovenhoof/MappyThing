@@ -9,7 +9,7 @@ export default class Tools {
         this.context = context;
         this.parent = parent;
         
-        this.context.querySelector('.function-add').addEventListener('click', (event) => {
+        this.context.querySelector('.fn-add').addEventListener('click', (event) => {
             this.currentMarker = new google.maps.Marker({
                 position:parent.getMap().getCenter(),
                 map:parent.getMap(),
