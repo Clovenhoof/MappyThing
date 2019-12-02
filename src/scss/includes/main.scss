@@ -13,14 +13,31 @@ main {
         justify-items:start;
         align-items:center;
         padding:0 1rem;
-        > a {
+        > a.fn-add {
+            display:inline-flex;
+            flex-flow:row nowrap;
+            align-items:center;
+            justify-content:flex-start;
             cursor:pointer;
-            color:rgba($grayscale-black,.32);
-            font-size:28px;
-            line-height:1.2em;
-            @include defaultTransition();
+            > * {
+                color:rgba($grayscale-black,.32);
+                @include defaultTransition();
+            }
             &:hover {
-                color:rgba($grayscale-black,.8);
+                * {
+                    color:rgba($grayscale-black,.8);
+                }
+            }
+            .material-icons {
+                font-size:28px;
+                line-height:1.2em;
+            }
+            .text {
+                font-size:10px;
+                line-height:1.2em;
+                font-weight:700;
+                max-width:60px;
+                text-transform:uppercase;
             }
         }
     }
