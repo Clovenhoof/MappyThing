@@ -21,6 +21,7 @@ class Modal {
         this.cancel = handlers.cancel;
         this.edit = handlers.edit;
         this.delete = handlers.delete;
+        this.favorite = handlers.favorite;
         
         axios.get('/' + action)
             .then((response) => {
@@ -41,11 +42,15 @@ class Modal {
     
     addHandlers(dialog) {
         // prevent number input overflow (html5 "bug")
-        let numbers = dialog.querySelector('input[type="number"]');
+        let numbers = dialog.querySelectorAll('input[type="number"]');
         if(numbers !== null) {
-            numbers.addEventListener('keydown', (event) => {
-                event.preventDefault();
-                return false;
+            numbers.forEach((item, index) => {
+                item.addEventListener('keydown', (event) => {
+                    if(event.key !== 'ArrowUp' && event.key !== 'ArrowDown' && event.key !== 'Tab') {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
             });
         }
         // cancel/close modal
@@ -65,6 +70,12 @@ class Modal {
         if(this.delete) {
             dialog.querySelector('a.delete').addEventListener('click', (event) => {
                 this.delete();
+            });
+        }
+        // fire favorite patch
+        if(this.favorite) {
+            dialog.querySelector('a.fn-favorite').addEventListener('click', (event) => {
+                this.favorite(event);
             });
         }
         // post form data
