@@ -15,4 +15,15 @@
             cursor:pointer;
         }
     }
+    .fn-favorite {
+        cursor:pointer;
+        color:rgba($grayscale-black,.32);
+        @include defaultTransition();
+        &:hover {
+            color:rgba($grayscale-black,.8);
+        }
+        &.favorited {
+            color:#f50057;
+        }
+    }
 }
