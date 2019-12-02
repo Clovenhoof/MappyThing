@@ -2,6 +2,9 @@
 global $config;
 $config = json_decode(file_get_contents(__DIR__ . '/../config/environment.json'), true);
 
+if(is_file(__DIR__ . '/../config/.env.php'))
+    require __DIR__ . '/../config/.env.php';
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Psr\Http\Message\ResponseInterface as Response;

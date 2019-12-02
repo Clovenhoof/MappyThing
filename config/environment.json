@@ -1,5 +1,4 @@
 {
-    "apikey":"<Insert your Google Maps API Key>",
     "map": {
         "initZoom":12,
         "lat":60.1699,
