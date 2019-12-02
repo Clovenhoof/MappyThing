@@ -8,7 +8,10 @@
     <body>
         <main>
             <div class="toolset">
-                <a class="material-icons function-add" aria-title="Add stuff">add</a>
+                <a class="fn-add" aria-title="Add stuff">
+                    <span class="material-icons">add</span>
+                    <span class="text">Add location</span>
+                </a>
             </div>
             <div class="map"></div>
         </main>
