@@ -1,0 +1,5 @@
+Require all granted
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /index.php [L,QSA]
