@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Roboto:300,300i,400,400i,700,700i');
+
+$grayscale-black:rgba(0,0,0,1);
+$grayscale-white:rgba(255,255,255,1);
+$header-color:rgba($grayscale-black,.32);
+$text-color:rgba($grayscale-black,.8);
+$global-shadows:2px 3px 5px rgba($grayscale-black,.16);
+$outline-color:#9ec3ff;
+$base-font-family:'Roboto',Sans-serif;
+
+body {
+    font-family:'Roboto',Sans-serif;
+    margin:0;
+    padding:0;
+    color:$text-color;
+}
+
+h1,h2,h3 {
+    color:$header-color;
+}
+
+@import 'scss/includes/mixins.scss';
+@import 'scss/includes/main.scss';
+@import 'scss/includes/modal.scss';
+@import 'scss/includes/view.scss';
+@import 'scss/includes/forms.scss';

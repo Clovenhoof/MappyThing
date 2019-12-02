@@ -1,0 +1,17 @@
+@mixin defaultTransition() {
+    transition:all 0.2s;
+    -webkit-transition:all 0.2s;
+    -ms-transition:all 0.2s;
+    -o-transition:all 0.2s;
+    transition-timing-function:cubic-bezier(.25,0,.25,1);
+    -webkit-transition-timing-function:cubic-bezier(.25,0,.25,1);
+    -ms-transition-timing-function:cubic-bezier(.25,0,.25,1);
+    -o-transition-timing-function:cubic-bezier(.25,0,.25,1);
+}
+
+@mixin transform($value) {
+    transform:$value;
+    -webkit-transform:$value;
+    -o-transform:$value;
+    -ms-transform:$value;    
+}

@@ -1,0 +1,27 @@
+main {
+    display:grid;
+    grid-template-columns:100vw;
+    grid-template-rows:50px calc(100vh - 50px);
+    > .toolset {
+        display:grid;
+        grid-template-columns:100%;
+        grid-template-rows:100%;
+        background:$grayscale-white;
+        position:relative;
+        z-index:1;
+        box-shadow:$global-shadows;
+        justify-items:start;
+        align-items:center;
+        padding:0 1rem;
+        > a {
+            cursor:pointer;
+            color:rgba($grayscale-black,.32);
+            font-size:28px;
+            line-height:1.2em;
+            @include defaultTransition();
+            &:hover {
+                color:rgba($grayscale-black,.8);
+            }
+        }
+    }
+}

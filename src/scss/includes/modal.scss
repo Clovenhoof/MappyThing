@@ -1,0 +1,55 @@
+body > .dialog {
+    position:fixed;
+    left:50%;
+    top:50%;
+    background:$grayscale-white;
+    width:350px;
+    max-width:100vw;
+    max-height:100vh;
+    border-radius:2px;
+    box-shadow:$global-shadows;
+    padding:1rem;
+    opacity:0;
+    pointer-events:none;
+    > :first-child {
+        margin-top:0;
+        padding-top:0;
+    }
+    > :last-child {
+        margin-bottom:0;
+        padding-bottom:0;
+    }
+    > .functions {
+        margin-top:2rem;
+        text-align:right;
+        display:flex;
+        flex-flow:row-nowrap;
+        justify-content:flex-end;
+        align-items:center;
+        .material-icons {
+            padding-top:0;
+            padding-bottom:0;
+            font-size:18px;
+            line-height:1.2em;
+        }
+        a {
+            cursor:pointer;
+            display:inline-block;
+            padding:5px 10px;
+            text-select:none;
+            &:not(:last-child) {
+                margin-right:1rem;
+            }
+            &.delete {
+                margin-right:auto;
+            }
+        }
+    }
+    @include defaultTransition();
+    @include transform(translate(-50%,-60%) scale(.8));
+    &.open {
+        pointer-events:auto;
+        opacity:1;
+        @include transform(translate(-50%,-50%) scale(1));
+    }
+}

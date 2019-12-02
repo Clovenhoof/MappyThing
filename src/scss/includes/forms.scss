@@ -1,0 +1,48 @@
+form.grid {
+    display:grid;
+    grid-template-columns:100%;
+    grid-gap:2rem 0;
+    input[type="text"], input[type="number"], textarea {
+        width:100%;
+        box-sizing:border-box;
+        border-width:0 0 1px 0;
+        border-color:rgba($grayscale-black,.16);
+        border-style:solid;
+        padding:8px 2px;
+        font-family:$base-font-family;
+        font-size:16px;
+        line-height:1.2em;
+        outline:2px auto $grayscale-white;
+        color:$text-color;
+        @include defaultTransition();
+        &:focus {
+            outline:2px auto $outline-color;
+        }
+        &::placeholder {
+            color:rgba($grayscale-black,.32);
+        }
+    }
+    textarea {
+        min-height:100px;
+        max-width:100%;
+        min-width:100%;
+    }
+    input[type="number"] {
+        text-align:right;
+    }
+    .opening-hours {
+        display:flex;
+        flex-flow:row nowrap;
+        align-items:flex-end;
+        justify-content:space-between;
+        > .label {
+            font-size:14px;
+            line-height:1.2em;
+            color:rgba($grayscale-black,.32);
+        }
+        > * {
+            max-width:50px;
+            margin-right:5px;
+        }
+    }
+}
