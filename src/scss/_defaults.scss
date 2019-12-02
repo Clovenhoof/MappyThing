@@ -8,6 +8,10 @@ $global-shadows:2px 3px 5px rgba($grayscale-black,.16);
 $outline-color:#9ec3ff;
 $base-font-family:'Roboto',Sans-serif;
 
+* {
+    box-sizing:border-box;
+}
+
 body {
     font-family:'Roboto',Sans-serif;
     margin:0;

@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Google maps demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://maps.googleapis.com/maps/api/js?key=<?= getenv('apikey'); ?>" type="text/javascript"></script>
         <script type="text/javascript" src="dist/bundle.js"></script>
     </head>
