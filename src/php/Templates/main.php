@@ -1,13 +1,8 @@
-<?php
-$configFile = dirname(__FILE__) . '/../../../config/environment.json';
-if(is_file($configFile)) {
-    $config = json_decode(file_get_contents($configFile), true);
-}
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Google maps demo</title>
-        <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo($config['apikey']); ?>" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<?= getenv('apikey'); ?>" type="text/javascript"></script>
         <script type="text/javascript" src="dist/bundle.js"></script>
     </head>
     <body>
