@@ -1,4 +1,5 @@
 const config = require('config/environment.json');
+const style = require('src/style.js');
 
 import _ from 'lodash';
 import axios from 'axios';
@@ -21,7 +22,11 @@ class Main {
                 lat: config.map.lat ? config.map.lat : 60.1699,
                 lng: config.map.lng ? config.map.lng : 24.9384
             },
-            zoom: config.map.initZoom ? config.map.initZoom : 8
+            zoom: config.map.initZoom ? config.map.initZoom : 8,
+            streetViewControl:false,
+            mapTypeControl:false,
+            fullscreenControl:false,
+            styles:style.default
         });
         // init modal handler
         this.modal = new Modal();
@@ -31,6 +36,7 @@ class Main {
         this.refresh();
     }
     
+    // clear & redraw markers
     refresh() {
         if(this.places.length) {
             _.each(this.places, (o,k) => {
@@ -109,6 +115,29 @@ class Main {
                                 cancel: () => {}
                             });
                         });
+                },
+                favorite: (event) => {
+                    if(event.target.textContent == 'favorite_border') {
+                        axios
+                            .patch('/api/places/' + marker.id + '/', {"favorite":true})
+                            .then(() => {
+                                event.target.textContent = 'favorite';
+                                event.target.classList.add('favorited');
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }else{
+                        axios
+                            .patch('/api/places/' + marker.id + '/', {"favorite":false})
+                            .then(() => {
+                                event.target.textContent = 'favorite_border';
+                                event.target.classList.remove('favorited');
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }
                 }
             }
             
@@ -117,7 +146,7 @@ class Main {
                 this.modal
                     .destroy()
                     .then(() => {
-                        this.modal.open('view/' + marker.id + '/', eventHandlers)
+                        this.modal.open('view/' + marker.id + '/', eventHandlers);
                     });
             // ...or just open it
             }else{
