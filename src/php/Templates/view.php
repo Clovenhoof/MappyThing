@@ -1,7 +1,11 @@
 <div class="view">
     <div class="header">
         <h2 class="title"><?= $title; ?></h2>
-        <a class="favorite material-icons"><?= isset($favorite) && $favorite == true ? 'favorite' : 'favorite_border'; ?></a>
+        <?php if(isset($favorite) && $favorite == true) { ?>
+            <a class="fn-favorite favorited material-icons">favorite</a>
+        <?php }else{ ?>
+            <a class="fn-favorite material-icons">favorite_border</a>
+        <?php } ?>
     </div>
     <p class="description"><?= $description ?></p>
     <div class="open">
