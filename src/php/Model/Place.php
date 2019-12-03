@@ -13,7 +13,7 @@ class Place {
         'startMinutes' => ['string'],
         'endHours' => ['string'],
         'endMinutes' => ['string'],
-        'favourite' => ['boolean'],
+        'favorite' => ['boolean'],
         'lat' => ['float'],
         'lng' => ['float']
     ];
