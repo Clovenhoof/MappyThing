@@ -14,6 +14,6 @@
     </div>
 </div>
 <div class="functions">
-    <a class="edit material-icons">edit</a>
-    <a class="cancel">Ok</a>
+    <a class="fn-edit material-icons">edit</a>
+    <a class="fn-cancel material-icons">check</a>
 </div>

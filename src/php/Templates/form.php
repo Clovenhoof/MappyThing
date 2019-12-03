@@ -16,8 +16,11 @@
 </form>
 <div class="functions">
     <?php if(isset($id)) {
-        ?><a class="delete">Delete</a><?php
+        ?><a class="fn-delete material-icons">delete_outlined</a><?php
     } ?>
-    <a class="cancel">Cancel</a>
-    <a class="save">Save</a>
+    <a class="fn-cancel material-icons">close</a>
+    <?php if(isset($id)) {
+        ?><a class="fn-move material-icons">zoom_out_map</a><?php
+    } ?>
+    <a class="fn-save material-icons">check</a>
 </div>
