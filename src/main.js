@@ -79,6 +79,14 @@ class Main {
         // handle dialog openings and function swapping
         marker.addListener('click', (event) => {
             // view functions/events
+            if(this.selected) {
+                this.selected.setDraggable(false);
+                this.selected.setIcon(Icons.normal);
+                google.maps.event.removeListener(this.listener);
+                this.selected = undefined;
+                this.listener = undefined;
+                console.log('calling clearer');
+            }
             let eventHandlers = {
                 cancel: () => {},
                 // function upgraded form for edit
@@ -91,6 +99,30 @@ class Main {
                                     "lat":marker.getPosition().lat(),
                                     "lng":marker.getPosition().lng()
                                 }, data)),
+                                move: () => {
+                                    this.modal
+                                        .destroy()
+                                        .then(() => {
+                                            this.selected = this.places[marker.id].marker;
+                                            this.selected.setDraggable(true);
+                                            this.selected.setIcon(Icons.selected);
+                                            this.listener = this.selected.addListener('dragend', (event) => {
+                                                axios
+                                                    .patch('/api/places/' + marker.id + '/', {
+                                                        "lat":this.selected.getPosition().lat(),
+                                                        "lng":this.selected.getPosition().lng()
+                                                    })
+                                                    .then(() => {
+                                                        google.maps.event.removeListener(this.listener);
+                                                        this.selected.setDraggable(false);
+                                                        this.selected.setIcon(Icons.normal);
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error(error);
+                                                    });
+                                            });
+                                        });
+                                },
                                 // confirm delete dialog
                                 delete: () => {
                                     this.modal
