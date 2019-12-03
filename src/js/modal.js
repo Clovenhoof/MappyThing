@@ -19,6 +19,7 @@ class Modal {
     open(action, handlers = {}) {
         this.success = handlers.success;
         this.cancel = handlers.cancel;
+        this.move = handlers.move;
         this.edit = handlers.edit;
         this.delete = handlers.delete;
         this.favorite = handlers.favorite;
@@ -55,20 +56,26 @@ class Modal {
         }
         // cancel/close modal
         if(this.cancel) {
-            dialog.querySelector('a.cancel').addEventListener('click', (event) => {
+            dialog.querySelector('a.fn-cancel').addEventListener('click', (event) => {
                 this.cancel();
                 this.destroy();
             });
         }
-        // fire edit event/swap modal
+        // move marker
+        if(this.move) {
+            dialog.querySelector('a.fn-move').addEventListener('click', (event) => {
+                this.move();
+            });
+        }
+        // edit event/swap modal
         if(this.edit) {
-            dialog.querySelector('a.edit').addEventListener('click', (event) => {
+            dialog.querySelector('a.fn-edit').addEventListener('click', (event) => {
                 this.edit();
-            })
+            });
         }
         // delete post handler
         if(this.delete) {
-            dialog.querySelector('a.delete').addEventListener('click', (event) => {
+            dialog.querySelector('a.fn-delete').addEventListener('click', (event) => {
                 this.delete();
             });
         }
@@ -80,7 +87,7 @@ class Modal {
         }
         // post form data
         if(this.success) {
-            dialog.querySelector('a.save').addEventListener('click', (event) => {
+            dialog.querySelector('a.fn-save').addEventListener('click', (event) => {
                 // forms to json
                 let elements = dialog.querySelectorAll('input, select, textarea');
                 let data = {};
