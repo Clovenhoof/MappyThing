@@ -8,7 +8,7 @@ body > .dialog {
     max-height:100vh;
     border-radius:2px;
     box-shadow:$global-shadows;
-    padding:1rem;
+    padding:1.5rem;
     opacity:0;
     pointer-events:none;
     > :first-child {
@@ -36,11 +36,11 @@ body > .dialog {
             cursor:pointer;
             display:inline-block;
             padding:5px 10px;
-            text-select:none;
+            user-select:none;
             &:not(:last-child) {
                 margin-right:1rem;
             }
-            &.delete {
+            &.fn-delete {
                 margin-right:auto;
             }
         }
