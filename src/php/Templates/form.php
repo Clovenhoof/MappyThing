@@ -33,11 +33,10 @@
 </form>
 <div class="functions">
     <?php if(isset($id)) {
-        ?><a class="fn-delete material-icons">delete_outlined</a><?php
+        ?><a class="fn-delete" aria-label="Delete"><i class="material-icons">close</i></a><?php
     } ?>
-    <a class="fn-cancel material-icons"></a>
     <?php if(isset($id)) {
-        ?><a class="fn-move material-icons">zoom_out_map</a><?php
+        ?><a class="fn-move" aria-label="Move"><i class="material-icons">zoom_out_map</i></a><?php
     } ?>
-    <a class="fn-save material-icons">check</a>
+    <a class="fn-save" aria-label="Ok"><i class="material-icons">check</i></a>
 </div>

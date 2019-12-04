@@ -4,7 +4,7 @@
         <?php if(isset($favorite) && $favorite == true) { ?>
             <a class="fn-favorite favorited material-icons">favorite</a>
         <?php }else{ ?>
-            <a class="fn-favorite material-icons">favorite_border</a>
+            <a class="fn-favorite material-icons" aria-label="Add favorite">favorite_border</a>
         <?php } ?>
     </div>
     <p class="description"><?= $description ?></p>
@@ -25,6 +25,6 @@
     </div>
 </div>
 <div class="functions">
-    <a class="fn-edit material-icons">edit</a>
-    <a class="fn-cancel material-icons">check</a>
+    <a class="fn-edit" aria-label="Edit location"><i class="material-icons">edit</i></a>
+    <a class="fn-cancel" aria-label="Ok"><i class="material-icons">check</i></a>
 </div>
