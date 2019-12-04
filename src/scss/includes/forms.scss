@@ -2,35 +2,6 @@ form.grid {
     display:grid;
     grid-template-columns:100%;
     grid-gap:2rem 0;
-    input[type="text"], input[type="number"], textarea {
-        width:100%;
-        box-sizing:border-box;
-        border-width:0 0 1px 0;
-        border-color:rgba($grayscale-black,.16);
-        border-style:solid;
-        padding:8px 2px;
-        font-family:$base-font-family;
-        font-size:16px;
-        line-height:1.2em;
-        outline:2px auto $grayscale-white;
-        color:$text-color;
-        @include defaultTransition();
-        &:focus {
-            outline:2px auto $outline-color;
-        }
-        &::placeholder {
-            color:rgba($grayscale-black,.32);
-        }
-    }
-    textarea {
-        min-height:100px;
-        max-width:100%;
-        min-width:100%;
-    }
-    input[type="number"] {
-        text-align:right;
-        caret-color:transparent;
-    }
     .opening-hours {
         display:flex;
         flex-flow:row nowrap;
@@ -45,5 +16,82 @@ form.grid {
             max-width:50px;
             margin-right:5px;
         }
+    }
+    
+    .keywords {
+        .selected {
+            span {
+                display:inline-flex;
+                font-size:14px;
+                line-height:1.2em;
+                padding:4px 10px;
+                border-radius:16px;
+                margin-bottom:4px;
+                margin-right:2px;
+                background:rgba($grayscale-black,.16);
+                cursor:pointer;
+                @include defaultTransition();
+                &:hover {
+                    color:$grayscale-white;
+                    background:rgba($error-color,1);
+                }
+            }
+        }
+    }
+}
+
+input[type="text"], input[type="number"], textarea {
+    width:100%;
+    box-sizing:border-box;
+    border-width:0 0 1px 0;
+    border-color:rgba($grayscale-black,.16);
+    border-style:solid;
+    padding:8px 2px;
+    font-family:$base-font-family;
+    font-size:16px;
+    line-height:1.2em;
+    outline:2px auto $grayscale-white;
+    color:$text-color;
+    @include defaultTransition();
+    &:focus {
+        outline:2px auto $outline-color;
+    }
+    &::placeholder {
+        color:rgba($grayscale-black,.32);
+    }
+}
+
+textarea {
+    min-height:100px;
+    max-width:100%;
+    min-width:100%;
+}
+
+input[type="number"] {
+    text-align:right;
+    caret-color:transparent;
+}
+
+select {
+    min-width:100px;
+    box-sizing:border-box;
+    border-width:0 0 1px 0;
+    border-color:rgba($grayscale-black,.16);
+    border-style:solid;
+    padding:8px 2px;
+    font-family:$base-font-family;
+    font-size:16px;
+    line-height:1.2em;
+    outline:2px auto $grayscale-white;
+    color:rgba($text-color, .32);
+    @include defaultTransition();
+    &.fn--active {
+        color:$text-color;
+    }
+    &:focus {
+        outline:2px auto $outline-color;
+    }
+    &::placeholder {
+        color:rgba($grayscale-black,.32);
     }
 }
