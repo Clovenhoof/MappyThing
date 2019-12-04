@@ -12,6 +12,17 @@
         <span class="text">Open</span>
         <span class="startHours"><?= $startHours; ?></span>:<span class="startMinutes"><?= $startMinutes == 0 ? '00' : $startMinutes; ?></span> - <span class="endHours"><?= $endHours; ?></span>:<span class="endMinutes"><?= $endMinutes == 0 ? '00' : $endMinutes; ?></span>
     </div>
+    <div class="keywords">
+        <?php
+            if(is_array($keywords)) {
+                if(count($keywords)) {
+                    foreach($keywords as $keyword) {
+                        ?><span><?= $keyword['title']; ?></span><?php
+                    }
+                }
+            }
+        ?>
+    </div>
 </div>
 <div class="functions">
     <a class="fn-edit material-icons">edit</a>
