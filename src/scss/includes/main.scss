@@ -2,10 +2,12 @@ main {
     display:grid;
     grid-template-columns:100vw;
     grid-template-rows:50px calc(100vh - 50px);
+    @media (max-width:$content-breakpoint) {
+        grid-template-rows:100px calc(100vh - 100px);
+    }
     > .toolset {
-        display:grid;
-        grid-template-columns:100%;
-        grid-template-rows:100%;
+        display:flex;
+        flex-flow:row wrap;
         background:$grayscale-white;
         position:relative;
         z-index:1;
@@ -13,17 +15,41 @@ main {
         justify-items:start;
         align-items:center;
         padding:0 1rem;
-        > a.fn-add {
+        @media (max-width:$content-breakpoint) {
+            > .filters:last-child {
+                margin-left:0;
+            }
+        }
+        .fn--add + .filters {
+            margin-left:auto;
+        }
+        > .filters {
+            margin-left:1rem;
+            display:inline-flex;
+            justify-self:flex-end;
+            align-items:center;
+            > * {
+                &:not(:first-child) {
+                    margin-left:1rem;
+                }
+            }
+            select, input[type="text"] {
+                width:50%;
+            }
+        }
+        a.fn {
             display:inline-flex;
             flex-flow:row nowrap;
             align-items:center;
             justify-content:flex-start;
             cursor:pointer;
+            user-select:none;
             > * {
+                pointer-events:none;
                 color:rgba($grayscale-black,.32);
                 @include defaultTransition();
             }
-            &:hover {
+            &--active, &:hover {
                 * {
                     color:rgba($grayscale-black,.8);
                 }
@@ -31,6 +57,7 @@ main {
             .material-icons {
                 font-size:28px;
                 line-height:1.2em;
+                margin-right:5px;
             }
             .text {
                 font-size:10px;
@@ -38,6 +65,9 @@ main {
                 font-weight:700;
                 max-width:60px;
                 text-transform:uppercase;
+                @media (max-width:$content-breakpoint) {
+                    display:none
+                }
             }
         }
     }
