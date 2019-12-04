@@ -26,4 +26,17 @@
             color:#f50057;
         }
     }
+    .keywords {
+        margin-bottom:-4px;
+        span {
+            display:inline-flex;
+            font-size:14px;
+            line-height:1.2em;
+            padding:4px 10px;
+            border-radius:16px;
+            margin-bottom:4px;
+            margin-right:2px;
+            background:rgba($grayscale-black,.16);
+        }
+    }
 }
