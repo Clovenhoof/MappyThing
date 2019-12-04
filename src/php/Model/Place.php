@@ -51,6 +51,26 @@ class Place {
             return false;
     }
     
+     public function delete(int $id) {
+        $places = $this->fetchAll();
+        foreach($places as $key => $row) {
+            if($id == (int)$row['id']) {
+                $keywords = new Keyword();
+                if(is_array($row['keywords'])) {
+                    foreach($row['keywords'] as $key => $keyword) {
+                        $keywords->delete((int)$keyword);
+                    }
+                }
+                array_splice($places, $key, 1);
+                break;
+            }
+        }
+        if(file_put_contents($this->getStorageFileName(), json_encode($places))) {
+            return true;
+        }else
+            return false;
+    }
+    
     public function fetch($args = null) {
         $results = $this->fetchAll();
         
