@@ -10,8 +10,15 @@ trait Common {
     
     public function setValues(array $values) {
         foreach($values as $key => $value) {
-            if(in_array($key, array_keys($this::$_fields)))
+            if(in_array($key, array_keys($this::$_fields))) {
+                if($this::$_fields[$key][0] == 'array') {
+                    if(strlen($value) === 0)
+                        $value = [];
+                    else
+                        $value = array_filter(explode(',', $value));
+                }
                 $this->setValue($key, $value);
+            }
         }
     }
     
@@ -25,10 +32,24 @@ trait Common {
         $class = strtolower($class[count($class) - 1]);
         
         $oldData = $this->fetchAll();
-        array_push($oldData, $this->getValues());
+        
+        $current = null;
+        foreach($oldData as $key => $row) {
+            if($row['id'] == (int)$this->getValue('id')) {
+                $current = $key;
+                break;
+            }
+        }
+        
+        if($current !== null) {
+            $oldData[$current] = array_merge($oldData[$current], $this->getValues());
+        }else{
+            array_push($oldData, $this->getValues());
+        }
         
         if(file_put_contents($this->getStorageFileName(), json_encode($oldData))) {
-            $this->setValue('id', count($oldData) - 1);
+            if($this->getValue('id') === null)
+                $this->setValue('id', count($oldData) - 1);
             return true;
         }else
             return false;
@@ -36,7 +57,12 @@ trait Common {
     
     public function delete(int $id) {
         $results = $this->fetchAll();
-        array_splice($results, $id, 1);
+        foreach($results as $key => $row) {
+            if($row['id'] == $id) {
+                array_splice($results, $key, 1);
+                break;
+            }
+        }
         
         if(file_put_contents($this->getStorageFileName(), json_encode($results))) {
             return true;
@@ -59,8 +85,8 @@ trait Common {
     }
     
     protected function getValue(string $key) {
-        if(isset($this->$_values[$key]))
-            return $this->$_values[$key];
+        if(isset($this->_values[$key]))
+            return $this->_values[$key];
         else
             return null;
     }
