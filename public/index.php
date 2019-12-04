@@ -14,6 +14,7 @@ use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
 
 use App\Model\Place;
+use App\Model\Keyword;
 
 $app = AppFactory::create();
 $app->addErrorMiddleware(true,false,false);
@@ -96,10 +97,12 @@ $app->post('/api/places/', function($request, $response) {
 
 // edit place
 $app->patch('/api/places/{id}/', function($request, $response, $args) {
-    $post = new Place();
-    if($post->update(array_replace_recursive(['id' => $args['id']], json_decode($request->getBody(), true)))) {
+    $place = new Place();
+    $place->fetch(['id' => $args['id']]);
+    $place->setValues(array_replace_recursive(["id" => $args['id']], json_decode($request->getBody(), true)));
+    if($place->store()) {
         $response->getBody()->write(json_encode([
-            'place' => $post->getValues()
+            'place' => $place->getValues()
         ]));
         return $response
             ->withHeader('Content-Type', 'application/json');
@@ -118,6 +121,69 @@ $app->delete('/api/places/{id}/', function($request, $response, $args) {
         ]));
         return $response
             ->withHeader('Content-Type', 'application/json');
+});
+
+// search/get keywords
+$app->get('/api/keyword/', function($request, $response) {
+    $keyword = new Keyword();
+    $response->getBody()->write(json_encode([
+        'keywords' => $keyword->fetch()
+    ]));
+    return $response
+        ->withHeader('Content-Type', 'application/json');
+});
+
+// store keyword
+$app->post('/api/keyword/', function($request, $response) {
+    try {
+        $post = new Keyword(json_decode($request->getBody(), true));
+        if($post->store()) {
+            $response->getBody()->write(json_encode([
+                'keyword' => $post->getValues()
+            ]));
+            return $response
+                ->withHeader('Content-Type', 'application/json');
+        }else{
+            throw new Exception();
+        }
+    }
+    catch(exception $e) {
+        return $response
+            ->withStatus(500);
+    }
+});
+
+// update keyword
+$app->patch('/api/keyword/', function($request, $response) {
+    try {
+        $post = new Keyword(json_decode($request->getBody(), true));
+        if($post->store()) {
+            $response->getBody()->write(json_encode([
+                'keyword' => $post->getValues()
+            ]));
+            return $response
+                ->withHeader('Content-Type', 'application/json');
+        }else{
+            throw new Exception();
+        }
+    }
+    catch(exception $e) {
+        return $response
+            ->withStatus(500);
+    }
+});
+
+// delete keyword
+$app->delete('/api/keyword/{id}/', function($request, $response, $args) {
+    $post = new Keyword();
+    if($post->delete($args['id'])) {
+        $response->getBody()->write(json_encode([
+            'keyword' => $args['id']
+        ]));
+    }else{
+        $response->withStatus(500);
+    }
+    return $response;
 });
 
 $app->run();
