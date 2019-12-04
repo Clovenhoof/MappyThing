@@ -2,11 +2,13 @@
 
 $grayscale-black:rgba(0,0,0,1);
 $grayscale-white:rgba(255,255,255,1);
+$error-color:#f44336;
 $header-color:rgba($grayscale-black,.64);
 $text-color:rgba($grayscale-black,.8);
 $global-shadows:2px 3px 5px rgba($grayscale-black,.16);
 $outline-color:#9ec3ff;
 $base-font-family:'Roboto',Sans-serif;
+$content-breakpoint:767px;
 
 * {
     box-sizing:border-box;
