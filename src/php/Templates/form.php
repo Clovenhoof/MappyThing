@@ -1,5 +1,5 @@
 <h2><?= isset($id) ? 'Edit location' : 'Add location' ?></h2>
-<form class="grid">
+<form class="grid" name="place">
     <?php if(isset($id)) {
         ?><input type="hidden" name="id" value="<?= $id; ?>"><?php
     } ?>
@@ -13,12 +13,29 @@
         <input type="number" name="endHours" value="<?= isset($endHours) ? $endHours : 16; ?>" max="23" min="0"/>
         <input type="number" name="endMinutes" value="<?= isset($endMinutes) ? $endMinutes : 0; ?>" max="50" min="0" step="10"/>
     </div>
+    <div class="keywords">
+        <input class="keyword-input" type="hidden" name="keywords"/>
+        <div class="selected">
+            <?php
+                if(isset($keywords)) {
+                    if(is_array($keywords)) {
+                        if(count($keywords)) {
+                            foreach($keywords as $keyword) {
+                                ?><span data-id="<?= $keyword['id']; ?>"><?= $keyword['title']; ?></span><?php
+                            }
+                        }
+                    }
+                }
+            ?>
+        </div>
+        <input class="keyword-selector" placeholder="Add keyword" type="text"/>
+    </div>
 </form>
 <div class="functions">
     <?php if(isset($id)) {
         ?><a class="fn-delete material-icons">delete_outlined</a><?php
     } ?>
-    <a class="fn-cancel material-icons">close</a>
+    <a class="fn-cancel material-icons"></a>
     <?php if(isset($id)) {
         ?><a class="fn-move material-icons">zoom_out_map</a><?php
     } ?>
