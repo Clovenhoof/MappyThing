@@ -2,11 +2,13 @@
 namespace App\Model;
 
 use App\Model\Common;
+use App\Model\Keyword;
 
 class Place {
     use Common;
     
     protected static $_fields = [
+        'id' => ['int'],
         'title' => ['string'],
         'description' => ['string'],
         'startHours' => ['string'],
@@ -14,6 +16,7 @@ class Place {
         'endHours' => ['string'],
         'endMinutes' => ['string'],
         'favorite' => ['boolean'],
+        'keywords' => ['array'],
         'lat' => ['float'],
         'lng' => ['float']
     ];
@@ -31,13 +34,18 @@ class Place {
             return false;
         
         $id = (int)$args['id'];
-        unset($args['id']);
         
         $results = $this->fetchAll();
-        $results[$id] = array_replace_recursive($results[$id], $args);
+        
+        foreach($results as $key => $row) {
+            if($row['id'] == $id) {
+                $row = array_replace_recursive($row, $args);
+                break;
+            }
+        }
         
         if(file_put_contents($this->getStorageFileName(), json_encode($results))) {
-            $this->setValues($results[$id]);
+            $this->setValues($row);
             return true;
         }else
             return false;
@@ -49,8 +57,14 @@ class Place {
         if(is_array($args)) {
             if(isset($args['id']) && is_numeric($args['id'])) {
                 foreach($results as $key => $row) {
-                    if($key == $args['id']) {
-                        $results = array_replace_recursive(['id' => $key], $row);
+                    if($row['id'] == $args['id']) {
+                        if(is_array($row['keywords'])) {
+                            if(count($row['keywords'])) {
+                                $row['keywords'] = (new Keyword())->resolve($row['keywords']);
+                            }
+                        }
+                        $results = $row;
+                        break;
                     }
                 }
             }
@@ -59,3 +73,4 @@ class Place {
         return $results;
     }
 }
+?>
