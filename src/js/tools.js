@@ -56,7 +56,7 @@ export default class Tools {
         });
         
         // keyword filter
-        this.initKeywords();
+        this.initKeywords(false);
         this.context.querySelector('.fn--keywords').addEventListener('change', (event) => {
             if(event.target.value) {
                 this.filters = _.assign(this.filters, {"keyword":event.target.value});
@@ -96,7 +96,7 @@ export default class Tools {
     }
     
     // keyword refresher
-    initKeywords() {
+    initKeywords(refresh = true) {
         axios
             .get('/api/keyword/')
             .then((response) => {
@@ -114,7 +114,8 @@ export default class Tools {
                 });
                 select.classList.remove('fn--active');
                 delete this.filters['keyword'];
-                this.parent.refresh();
+                if(refresh)
+                    this.parent.refresh();
             })
             .catch((error) => {
                 console.error(error);
