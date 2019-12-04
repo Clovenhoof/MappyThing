@@ -55,21 +55,6 @@ trait Common {
             return false;
     }
     
-    public function delete(int $id) {
-        $results = $this->fetchAll();
-        foreach($results as $key => $row) {
-            if($row['id'] == $id) {
-                array_splice($results, $key, 1);
-                break;
-            }
-        }
-        
-        if(file_put_contents($this->getStorageFileName(), json_encode($results))) {
-            return true;
-        }else
-            return false;
-    }
-    
     protected function fetchAll() {
         return json_decode(file_get_contents($this->getStorageFileName()),true) ?? [];
     }
