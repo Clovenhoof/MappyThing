@@ -88,8 +88,7 @@ export default class Tools {
                                     "lng":this.currentMarker.getPosition().lng()
                                 }, data));
                                 this.currentMarker.setMap(null);
-                            },
-                            cancel: () => { this.self.cancelPlace() }
+                            }
                         }
                     );
                 })
