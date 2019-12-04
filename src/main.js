@@ -177,6 +177,7 @@ class Main {
                                                     axios.delete('/api/places/' + marker.id + '/')
                                                         .then((response) => {
                                                             // call refresh to update ids
+                                                            this.tools.initKeywords();
                                                             this.refresh();
                                                         })
                                                         .catch((error) => {
@@ -185,8 +186,7 @@ class Main {
                                                 }
                                             })
                                         });
-                                },
-                                cancel: () => {}
+                                }
                             });
                         });
                 },
