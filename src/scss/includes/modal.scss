@@ -34,14 +34,32 @@ body > .dialog {
         }
         a {
             cursor:pointer;
-            display:inline-block;
+            display:inline-flex;
             padding:5px 10px;
             user-select:none;
+            border-radius:2px;
+            text-align:center;
+            width:auto;
+            justify-content:center;
+            @include defaultTransition();
             &:not(:last-child) {
                 margin-right:1rem;
             }
+            &:hover {
+                background:rgba($grayscale-black,.16);
+            }
             &.fn-delete {
                 margin-right:auto;
+                &:hover {
+                    color:$grayscale-white;
+                    background:$error-color;
+                }
+            }
+            &.fn-save {
+                &:hover {
+                    color:$grayscale-white;
+                    background:$success-color;
+                }
             }
         }
     }
