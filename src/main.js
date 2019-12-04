@@ -29,7 +29,7 @@ class Main {
             styles:style.default
         });
         // init modal handler
-        this.modal = new Modal();
+        this.modal = new Modal(this);
         // init tool events
         this.tools = new Tools(this, document.querySelector('body main .toolset'));
         // load stored data
@@ -47,9 +47,52 @@ class Main {
         axios
             .get('/api/places/')
             .then((response) => {
-                if(response.data.places) {
-                    _.each(response.data.places, (o,k) => {
-                        this.setPlace(_.assign({"id":k}, o));
+                let currentData = response.data.places;
+                let filters = this.tools.getFilters();
+                
+                // filter on search
+                if(filters['search']) {
+                    let query = new RegExp(filters['search'], "gi");
+                    currentData = _.filter(currentData, (o,k) => {
+                        return query.test(o.title);
+                    });
+                }
+                
+                // filter on favorites
+                if(filters['favorite']) {
+                    currentData = _.filter(currentData, {"favorite":true});
+                }
+                
+                // filter on open
+                if(filters['open']) {
+                    let time = new Date();
+                    let currentTime = (time.getHours()*60) + time.getMinutes();
+                    currentData = _.filter(currentData, (o,k) => {
+                        let startTime = (Number(o.startHours)*60) + Number(o.startMinutes);
+                        let endTime = (Number(o.endHours)*60) + Number(o.endMinutes);
+                        
+                        if(currentTime >= startTime && currentTime <= endTime)
+                            return true;
+                        else
+                            return false;
+                    });
+                }
+                
+                // filter on keyword
+                if(filters['keyword']) {
+                    currentData = _.filter(currentData, (o,k) => {
+                        let keywords = o.keywords.map(v => Number(v));
+                        
+                        if(keywords.indexOf(Number(filters['keyword'])) == -1)
+                            return false;
+                        else
+                            return true;
+                    });
+                }
+                    
+                if(currentData) {
+                    _.each(currentData, (o,k) => {
+                        this.setPlace(o);
                     });
                 }
             })
@@ -85,7 +128,6 @@ class Main {
                 google.maps.event.removeListener(this.listener);
                 this.selected = undefined;
                 this.listener = undefined;
-                console.log('calling clearer');
             }
             let eventHandlers = {
                 cancel: () => {},
@@ -98,12 +140,12 @@ class Main {
                                 success: (data) => this.savePlace(_.assign({
                                     "lat":marker.getPosition().lat(),
                                     "lng":marker.getPosition().lng()
-                                }, data)),
+                                }, data), false),
                                 move: () => {
                                     this.modal
                                         .destroy()
                                         .then(() => {
-                                            this.selected = this.places[marker.id].marker;
+                                            this.selected = _.find(this.places, {"id":marker.id}).marker;
                                             this.selected.setDraggable(true);
                                             this.selected.setIcon(Icons.selected);
                                             this.listener = this.selected.addListener('dragend', (event) => {
@@ -155,6 +197,7 @@ class Main {
                             .then(() => {
                                 event.target.textContent = 'favorite';
                                 event.target.classList.add('favorited');
+                                this.refresh();
                             })
                             .catch((error) => {
                                 console.error(error);
@@ -165,6 +208,7 @@ class Main {
                             .then(() => {
                                 event.target.textContent = 'favorite_border';
                                 event.target.classList.remove('favorited');
+                                this.refresh();
                             })
                             .catch((error) => {
                                 console.error(error);
@@ -189,22 +233,23 @@ class Main {
         this.places.push(newPlace);
     }
     
-    savePlace(data) {
-        // edit
-        if(data.id) {
-            axios
-                .patch('/api/places/' + data.id + '/', data)
-                .then((response) => {
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+    savePlace(data, newPost = true) {
         // create
-        }else{
+        if(newPost) {
             axios
                 .post('/api/places/', data)
                 .then((response) => {
                     this.setPlace(response.data.place);
+                    this.refresh();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        // edit
+        }else{
+            axios
+                .patch('/api/places/' + data.id + '/', data)
+                .then((response) => {
                 })
                 .catch((error) => {
                     console.error(error);
