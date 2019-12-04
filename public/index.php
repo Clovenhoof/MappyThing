@@ -17,7 +17,7 @@ use App\Model\Place;
 use App\Model\Keyword;
 
 $app = AppFactory::create();
-$app->addErrorMiddleware(true,false,false);
+$app->addErrorMiddleware(false,false,false);
 
 // main app
 $app->get('/', function($request, $response) {
