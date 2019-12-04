@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-var modal;
+import Keywords from 'src/keywords.js';
 
 class Modal {
-    constructor() {
+    constructor(parent) {
+        this.parent = parent;
         return this;
     }
     
@@ -32,6 +33,10 @@ class Modal {
                 this.addHandlers(this.dialog);
                 this.modalOpen = true;
                 document.querySelector('body').append(this.dialog);
+                // add keyword handler
+                if(action.split('/')[0] == 'form') {
+                    this.keywords = new Keywords(this.parent, this.dialog);
+                }
                 _.delay(() => {
                     this.dialog.classList.add('open');
                 },20);
