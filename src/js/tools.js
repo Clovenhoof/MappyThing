@@ -71,6 +71,9 @@ export default class Tools {
         
         // add new position
         this.context.querySelector('.fn--add').addEventListener('click', (event) => {
+            if(this.currentMarker !== undefined)
+                this.currentMarker.setMap(null);
+            
             this.currentMarker = new google.maps.Marker({
                 position:parent.getMap().getCenter(),
                 map:parent.getMap(),
