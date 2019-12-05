@@ -2,7 +2,7 @@ main {
     display:grid;
     grid-template-columns:100vw;
     grid-template-rows:50px calc(100vh - 50px);
-    @media (max-width:$content-breakpoint) {
+    @media (max-width:$mobile-breakpoint) {
         grid-template-rows:100px calc(100vh - 100px);
     }
     > .toolset {
@@ -15,8 +15,9 @@ main {
         justify-items:start;
         align-items:center;
         padding:0 1rem;
-        @media (max-width:$content-breakpoint) {
+        @media (max-width:$mobile-breakpoint) {
             > .filters:last-child {
+                flex-basis:100%;
                 margin-left:0;
             }
         }

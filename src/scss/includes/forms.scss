@@ -84,6 +84,7 @@ select {
     line-height:1.2em;
     outline:2px auto $grayscale-white;
     color:rgba($text-color, .32);
+    background:$grayscale-white;
     @include defaultTransition();
     &.fn--active {
         color:$text-color;
